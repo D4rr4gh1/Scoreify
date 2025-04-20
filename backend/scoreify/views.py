@@ -9,12 +9,6 @@ import requests
 def index(request):
     return HttpResponse("Hello World")
 
-def userLogin(request):
-    # Expect a post request from user login form on front end
-
-    return HttpResponse("YES")
-
-
 def callback(request):
     code = request.GET.get("code")
     if code == None:
@@ -27,4 +21,14 @@ def callback(request):
         
         accessToken = getAccessToken(code, codeVerifier)
         profileData = getUserProfile(accessToken)
-        return JsonResponse(profileData)
+        print(profileData)
+        request.session["spotify_profile"] = profileData
+        return redirect("http://localhost:3000/dashboard")
+    
+def spotifyProfile(request):
+    
+    data = request.session.get("spotify_profile")
+
+    print(data)
+
+    return JsonResponse(data, safe=False)
