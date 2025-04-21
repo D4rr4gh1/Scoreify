@@ -9,7 +9,7 @@ const SpotifyProfile = () => {
 
     useEffect(() => {
         
-        axios.get("http://127.0.0.1:8000/scoreify/profile/")
+        axios.get("http://127.0.0.1:8000/scoreify/profile/", {withCredentials: true})
         .then(response => {
             console.log(response);
             setProfile(response.data);

@@ -20,14 +20,14 @@ def callback(request):
             return HttpResponse("Missing Verifier", status=400)
         
         accessToken = getAccessToken(code, codeVerifier)
-        profileData = getUserProfile(accessToken)
+        profileData = getUserProfile(accessToken) # ProfileData is a Json with the information
+        request.session['profile'] = profileData
         print(profileData)
-        request.session["spotify_profile"] = profileData
         return redirect("http://localhost:3000/dashboard")
     
 def spotifyProfile(request):
     
-    data = request.session.get("spotify_profile")
+    data = request.session.get('profile')
 
     print(data)
 

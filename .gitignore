@@ -29,3 +29,10 @@
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
 /frontend/README.md
+
+*.log
+data/
+volumes/
+
+backend/data/
+backend/volumes/
