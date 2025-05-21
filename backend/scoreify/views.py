@@ -1,18 +1,24 @@
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse, HttpResponseRedirect
 from django.conf import settings
 from .services import *
 import requests
 
-# Create your views here.
+def index(request): 
+    return HttpResponse("HELLO WORLD")
 
-def index(request):
-    return HttpResponse("Hello World")
 
 def callback(request):
+
+    #Check if this is the initial call to the callback function or the callback from spotify
     code = request.GET.get("code")
+
+    # If it is the initial call, authorise the user
     if code == None:
         return authoriseUser(request)
+    
+    # If it is the callback from the spotify API, lets check if they are verified
+    # and then extract the user data
     else:
         codeVerifier = request.session.get('verifier')
 
@@ -20,15 +26,13 @@ def callback(request):
             return HttpResponse("Missing Verifier", status=400)
         
         accessToken = getAccessToken(code, codeVerifier)
-        profileData = getUserProfile(accessToken) # ProfileData is a Json with the information
-        request.session['profile'] = profileData
-        print(profileData)
-        return redirect("http://localhost:3000/dashboard")
-    
-def spotifyProfile(request):
-    
-    data = request.session.get('profile')
+        request.session['accessToken'] = accessToken
 
-    print(data)
+        return HttpResponseRedirect('http://127.0.0.1:3000/dashboard')
+    
+def spotifyProfile(request):  
+    accessToken = request.session.get('accessToken')
 
-    return JsonResponse(data, safe=False)
+    profileData = getUserProfile(accessToken)
+
+    return HttpResponse(profileData)

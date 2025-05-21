@@ -4,7 +4,7 @@ function Home() {
             <h1>Welcome to Scoreify 🎵</h1>
 
             <form>
-                <button formaction="http://127.0.0.1:8000/scoreify/callback/">Login</button>
+                <button formAction="http://127.0.0.1:8000/scoreify/callback/">Login</button>
             </form>
         </div>
 

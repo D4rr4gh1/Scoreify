@@ -34,7 +34,7 @@ const SpotifyProfile = () => {
         <div>
           <h1>Spotify Profile</h1>
           <div>
-            <h2>{profile}</h2>
+            <h2>{profile.display_name}</h2>
           </div>
         </div>
       );

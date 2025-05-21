@@ -2,21 +2,10 @@ from django.conf import settings
 from django.shortcuts import redirect
 import requests, os, base64, hashlib
 
-def get_access_token(request):
-
-    apiResponse = requests.post(
-        "https://accounts.spotify.com/api/token",
-        headers={"Content-Type" : "application/x-www-form-urlencoded"},
-        data={"grant_type" : "client_credentials"},
-        auth=(settings.SPOTIFY_CLIENT_ID, settings.SPOTIFY_CLIENT_SECRET)
-    )
-
-    accessToken = apiResponse.json().get("access_token")
-
-    return accessToken
-
 
 def authoriseUser(request):
+
+    # Generate the verifier and challenge needed to auth
     verifier = generateCodeVerifier()
     challenge = generateCodeChallenge(verifier)
 
@@ -62,7 +51,7 @@ def getAccessToken(code, codeVerifier):
 
 def getUserProfile(accessToken):
     response = requests.get(settings.SPOTIFY_URL, headers={ 'Authorization' : f"Bearer {accessToken}" })
-    return response.json()
+    return response
 
 def getProfileInfo():
     return None
