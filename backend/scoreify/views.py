@@ -3,6 +3,7 @@ from django.http import HttpResponse,JsonResponse, HttpResponseRedirect
 from django.conf import settings
 from .services import *
 import requests
+import json
 
 def index(request): 
     return HttpResponse("HELLO WORLD")
@@ -36,3 +37,12 @@ def spotifyProfile(request):
     profileData = getUserProfile(accessToken)
 
     return HttpResponse(profileData)
+
+def topItems(request):
+    accessToken = request.session.get('accessToken')
+    items = request.GET.get('items')
+
+    topTracksList = json.loads(getTopItems(accessToken, items).text)
+    for item in topTracksList['items']:
+        print(item['name'])
+    return JsonResponse(topTracksList['items'], safe=False)

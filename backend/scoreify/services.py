@@ -11,7 +11,7 @@ def authoriseUser(request):
 
     request.session['verifier'] = verifier
 
-    authURL = f"https://accounts.spotify.com/authorize?client_id={settings.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=http://127.0.0.1:8000/scoreify/callback/&code_challenge_method=S256&code_challenge={challenge}""&scope=user-read-private user-read-email"
+    authURL = f"https://accounts.spotify.com/authorize?client_id={settings.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=http://127.0.0.1:8000/scoreify/callback/&code_challenge_method=S256&code_challenge={challenge}""&scope=user-read-private user-read-email user-top-read"
 
     return redirect(authURL)
 
@@ -53,7 +53,8 @@ def getUserProfile(accessToken):
     response = requests.get(settings.SPOTIFY_URL, headers={ 'Authorization' : f"Bearer {accessToken}" })
     return response
 
-def getProfileInfo():
-    return None
+def getTopItems(accessToken, items):
+    response = requests.get(f'https://api.spotify.com/v1/me/top/{items}', headers={ 'Authorization' : f"Bearer {accessToken}" })
+    return response
 
 
