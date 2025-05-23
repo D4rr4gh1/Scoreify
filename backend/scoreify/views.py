@@ -41,8 +41,7 @@ def spotifyProfile(request):
 def topItems(request):
     accessToken = request.session.get('accessToken')
     items = request.GET.get('items')
+    limit = request.GET.get('limit')
 
-    topTracksList = json.loads(getTopItems(accessToken, items).text)
-    for item in topTracksList['items']:
-        print(item['name'])
+    topTracksList = json.loads(getTopItems(accessToken, items, limit).text)
     return JsonResponse(topTracksList['items'], safe=False)

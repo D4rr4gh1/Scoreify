@@ -1,0 +1,13 @@
+✔ Improve UI @done(25-05-23 20:17)
+✔ Remove profile data from dashboard @done(25-05-23 20:17)
+☐ Add a way to change time frame
+☐ Fix length of screen segments
+☐ Make each item a clickable link to the spotify page
+
+
+Extending List length:
+    ☐ Create settings tab
+    ☐ Select different length of items:
+        ☐ Add state for list length
+        ☐ Update state based on settings tab
+        
