@@ -1,4 +1,4 @@
-☐ Luke's account produces noe data
+✔ Luke's account produces noe data @done(25-05-24 12:50)
 ☐ Look into storing access token in sesion storage
 ☐ Add a way to refresh the access token
 ☐ Add ability to change time frame

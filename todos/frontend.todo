@@ -6,7 +6,7 @@
 
 
 Extending List length:
-    ☐ Create settings tab
+    ✔ Create settings tab @started(25-05-24 12:50) @done(25-05-24 13:48) @lasted(58m56s)
     ☐ Select different length of items:
         ☐ Add state for list length
         ☐ Update state based on settings tab

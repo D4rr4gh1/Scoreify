@@ -1,7 +1,8 @@
 import React from 'react';
 import './ArcadeScoreboard.css';
 
-const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick }) => {
+const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsClick }) => {
+
   return (
     <div className="arcade-fullscreen">
       <div className="arcade-cabinet">
@@ -13,6 +14,7 @@ const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick }) => {
             <div className="arcade-buttons">
               <button className="arcade-btn" onClick={onTracksClick}>TRACKS</button>
               <button className="arcade-btn" onClick={onArtistsClick}>ARTISTS</button>
+              <button className='arcade-btn' onClick={onSettingsClick}>SETTINGS</button>
             </div>
             <div className="score-list">
               <div className="score-entry">
