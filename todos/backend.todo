@@ -2,3 +2,9 @@
 ☐ Look into storing access token in sesion storage
 ☐ Add a way to refresh the access token
 ☐ Add ability to change time frame
+☐ Change top items logic -> Get recently played rather than top items, then sort by most played
+
+Settings Page:
+    ☐ Send current list length and time frame to settings to be displayed in text box
+    ☐ When update settings is clicked, update state of list length and time frame
+    ☐ Resend get request with updated values for two params

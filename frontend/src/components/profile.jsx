@@ -3,6 +3,7 @@ import axios from 'axios';
 import ArcadeScoreboard from './ArcadeScoreboard';
 import Settings from './Settings';
 import './profile.css';
+import Modal from 'react-bootstrap/Modal';
 
 const SpotifyProfile = () => {
   const [error, setError] = useState(null);
@@ -24,18 +25,27 @@ const SpotifyProfile = () => {
     });
   };
 
+  const openSettings = () => {
+    setShowSettings(true);
+  }
+
+  const closeSettings = () => {
+    setShowSettings(false);
+  }
+
   const settingsUpdate = () => {
 
   }
 
   return (
     <>
-      {showSettings ? (
-        <Settings 
-          onBack={() => setShowSettings(false)}
-          updateSettings={settingsUpdate}
-        />
-      ) : (
+
+        <Modal open={showSettings} onClose={closeSettings}>
+          <Settings 
+            onBack={() => setShowSettings(false)}
+            updateSettings={settingsUpdate}
+          />
+        </Modal>
         <ArcadeScoreboard 
           scores={items.map(item => ({
             name: item.name,
@@ -45,8 +55,9 @@ const SpotifyProfile = () => {
           onArtistsClick={() => getItems('artists')}
           onSettingsClick={() => setShowSettings(true)}
         />
-      )}
+
     </>
+
   );
 };
     

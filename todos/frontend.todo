@@ -3,6 +3,12 @@
 ☐ Add a way to change time frame
 ☐ Fix length of screen segments
 ☐ Make each item a clickable link to the spotify page
+☐ Update settings and help page buttons to sit on right side and have icons
+☐ Add loading icon when one of the tracks or artists is being loaded
+☐ If user goes directly to settings page, then tries to press back, it does not return to dashboard
+☐ Potentially refactor settings page to be a modal
+☐ Refactor profile page to display what the scoreboard page is displaying
+☐ Finish implementing Modals
 
 
 Extending List length:
@@ -10,4 +16,9 @@ Extending List length:
     ☐ Select different length of items:
         ☐ Add state for list length
         ☐ Update state based on settings tab
-        
+
+Setting Page:
+    ☐ Add input fields for list length and time frame
+    ☐ Return to dashboard when settings are updated
+    ☐ Send updated values of two input fields to 
+    ☐ Add logout button

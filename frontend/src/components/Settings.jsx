@@ -13,9 +13,6 @@ const Settings = ({ onBack, updateSettings }) => {
             <div className="arcade-buttons">
               <button className="arcade-btn" onClick={onBack}>BACK</button>
             </div>
-            <div>
-                
-            </div>
           </div>
         </div>
       </div>

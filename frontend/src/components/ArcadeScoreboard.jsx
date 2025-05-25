@@ -1,7 +1,7 @@
 import React from 'react';
 import './ArcadeScoreboard.css';
 
-const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsClick }) => {
+const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsClick}) => {
 
   return (
     <div className="arcade-fullscreen">
