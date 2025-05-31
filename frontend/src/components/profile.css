@@ -9,3 +9,91 @@
 .button-primary:hover {
   background-color: #16a34a;  /* hover:bg-green-600 */
 }
+
+/* Modal Styles */
+.arcade-modal .modal-content {
+  background-color: #000;
+  border: 3px solid #0f0;
+  border-radius: 10px;
+  color: #0f0;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.arcade-modal .modal-header {
+  border-bottom: 2px solid #0f0;
+  padding: 1rem;
+}
+
+.arcade-modal .modal-footer {
+  border-top: 2px solid #0f0;
+  padding: 1rem;
+}
+
+.arcade-modal .close {
+  color: #0f0;
+  text-shadow: none;
+  opacity: 1;
+}
+
+.arcade-modal .close:hover {
+  color: #fff;
+}
+
+.arcade-text {
+  color: #0f0;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+}
+
+.settings-content {
+  padding: 1rem;
+}
+
+.setting-item {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.arcade-input {
+  background-color: #000;
+  border: 2px solid #0f0;
+  color: #0f0;
+  font-family: 'Press Start 2P', cursive;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.arcade-input:focus {
+  outline: none;
+  box-shadow: 0 0 5px #0f0;
+}
+
+/* Override Bootstrap button styles in modal */
+.arcade-modal .arcade-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+  padding: 10px 20px;
+  background: #111;
+  color: #0f0;
+  border: 2px solid #0f0;
+  border-radius: 5px;
+  text-shadow: 0 0 5px #0f0;
+  box-shadow: 
+    0 0 10px rgba(0, 255, 0, 0.3),
+    inset 0 0 5px rgba(0, 255, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.arcade-modal .arcade-btn:hover {
+  background: #0f0;
+  color: #000;
+  text-shadow: none;
+}
+
+.arcade-modal .arcade-btn:active {
+  transform: scale(0.95);
+}
