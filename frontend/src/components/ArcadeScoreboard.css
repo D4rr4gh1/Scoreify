@@ -25,7 +25,7 @@
 }
 
 .screen-bezel {
-  height: 98%;
+  height: 100%;
   background: #111;
   padding: 0px;
   border-radius: 15px;
@@ -34,7 +34,7 @@
 }
 
 .screen {
-  height: 93%;
+  height: 100%;
   background: #000;
   color: #0f0;
   font-family: 'Press Start 2P', cursive;
@@ -184,4 +184,21 @@
     rgba(0, 0, 0, 0.2) 100%
   );
   pointer-events: none;
+}
+
+/* Add these styles to your existing CSS file */
+.error-message {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5vw;
+  text-align: center;
+  color: #ff0000;
+  text-shadow: 0 0 5px #ff0000;
+}
+
+@keyframes errorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.5; }
 } 

@@ -10,7 +10,7 @@
 ☐ Refactor profile page to display what the scoreboard page is displaying
 ✔ Finish implementing Modals @started(25-05-31 14:53) @done(25-05-31 15:21) @lasted(28m25s)
 ☐ Change logic so that timeframe and list length are only saved if save is pressed, otherwise they are not saved
-
+☐ Improve display of error messages, sit on error page for 3 seconds before redirecting to dashboard
 
 
 Extending List length:
@@ -23,4 +23,4 @@ Setting Page:
     ✔ Add input fields for list length and time frame @done(25-05-31 15:25)
     ✔ Return to dashboard when settings are updated @done(25-05-31 15:25)
     ✔ Send updated values of two input fields to @done(25-05-31 15:25)
-    ☐ Add logout button @started(25-06-01 14:39)
+    ✔ Add logout button @started(25-06-01 14:39) @done(25-06-01 19:54) @lasted(5h15m43s)

@@ -26,7 +26,7 @@ const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsCli
                 <div key={index} className="score-entry">
                   <span className="rank">{(index + 1).toString().padStart(2, '0')}</span>
                   <span className="name">{score.name.toUpperCase().padEnd(12, ' ')}</span>
-                  <span className="score">{score.score.toString().padStart(8, '0')}</span>
+                  <span className="score">{score.score.toString().padStart(6, '0')}</span>
                 </div>
               ))}
             </div>

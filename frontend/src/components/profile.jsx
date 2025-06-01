@@ -1,10 +1,10 @@
-import React, {useEffect,useState} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import ArcadeScoreboard from './ArcadeScoreboard';
-import Settings from './Settings';
+import ArcadeError from './ArcadeError';
 import './profile.css';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
+import ArcadeSettings from './ArcadeSettings';
 
 const SpotifyProfile = () => {
   const [error, setError] = useState(null);
@@ -13,37 +13,48 @@ const SpotifyProfile = () => {
   const [timeFrame, setTimeFrame] = useState('short_term');
   const [showSettings, setShowSettings] = useState(false);
   const [category, setCategory] = useState('tracks');
-
+  const navigate = useNavigate();
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <ArcadeError 
+        message={error}
+        onTimeout={() => navigate('/', { replace: true })}
+      />
+    );
   }
 
-  const getItems = (category) => { 
+  const handleGetItems = (category) => { 
     axios.get(`http://127.0.0.1:8000/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
     .then(response => {
       setItems(response.data);
     })
     .catch(err => {
-      setError(err.message)
+      setError(err.response?.data || 'ERROR');
+      setTimeout(() => {
+        navigate('/', {replace: true});
+      }, 3000);
     });
+  };
+
+  const handleLogout = () => {
+    axios.get('http://127.0.0.1:8000/scoreify/logout/', { withCredentials: true })
+      .then(() => {
+        setError('LOGOUT SUCCESSFUL');
+      })
+      .catch(err => {
+        setError(err.response?.data || 'LOGOUT ERROR');
+      });
   };
 
   const handleCategoryChange = (category) => {
     setCategory(category);
-    getItems(category);
+    handleGetItems(category);
   }
 
-  const handleLogout = () => {
-    axios.get('http://127.0.0.1:8000/scoreify/logout/', {withCredentials: true})
-    .then(response => {
-      console.log(response);
-    })
-  }
   const handleSaveSettings = () => {
-    // TODO: Save settings logic here
     setShowSettings(false);
-    getItems(category);
+    handleGetItems(category);
   }
 
   return (
@@ -57,66 +68,16 @@ const SpotifyProfile = () => {
         onArtistsClick={() => handleCategoryChange('artists')}
         onSettingsClick={() => setShowSettings(true)}
       />
-      <Modal 
-        show={showSettings} 
-        onHide={() => setShowSettings(false)}
-        centered
-        className="arcade-modal"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title className="arcade-text">SETTINGS</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="settings-content">
-            <div className="setting-item">
-              <label className="arcade-text">List Length:</label>
-              <input 
-                type="number" 
-                value={listLength}
-                onChange={(e) => setListLength(parseInt(e.target.value))}
-                min="1"
-                max="50"
-                className="arcade-input"
-              />
-            </div>
-            <div className="setting-item">
-              <label className="arcade-text">Time Frame:</label>
-              <select 
-                value={timeFrame}
-                onChange={(e) => setTimeFrame(e.target.value)}
-                className="arcade-input" 
-              >
-                <option value="short_term">Short Term</option>
-                <option value="medium_term">Medium Term</option>
-                <option value="long_term">Long Term</option>
-              </select>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button 
-            variant="secondary" 
-            onClick={() => setShowSettings(false)}
-            className="arcade-btn"
-          >
-            CLOSE
-          </Button>
-          <Button 
-            variant="primary" 
-            onClick={handleSaveSettings}
-            className="arcade-btn"
-          >
-            SAVE
-          </Button>
-          <Button 
-            variant="danger" 
-            onClick={handleLogout}
-            className="arcade-btn"
-          >
-            LOGOUT
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <ArcadeSettings
+        showSettings={showSettings}
+        setShowSettings={setShowSettings}
+        listLength={listLength}
+        setListLength={setListLength}
+        timeFrame={timeFrame}
+        setTimeFrame={setTimeFrame}
+        handleSaveSettings={handleSaveSettings}
+        handleLogout={handleLogout}
+      />
     </>
   );
 };

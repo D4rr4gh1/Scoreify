@@ -4,6 +4,7 @@ from django.conf import settings
 from .services import *
 import requests
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request): 
     return HttpResponse("HELLO WORLD")
@@ -40,14 +41,23 @@ def spotifyProfile(request):
 
 def topItems(request):
     accessToken = request.session.get('accessToken')
+    if not accessToken:
+        return HttpResponse(status=401, content="No access token found. User is not logged in.")
+    
     items = request.GET.get('items')
     limit = request.GET.get('limit')
     timeRange = request.GET.get('time_range')
 
     topTracksList = json.loads(getTopItems(accessToken, items, limit, timeRange).text)
+
+    if not topTracksList['items']:
+        return HttpResponse(status=400, content="No items found")
+    
     return JsonResponse(topTracksList['items'], safe=False)
 
+@csrf_exempt
 def logout(request):
-    requests.get('https://accounts.spotify.com/logout')
-    request.session.clear()
-    return HttpResponseRedirect('http://127.0.0.1:3000/')
+    request.session.flush()
+    response = HttpResponse(status=200)
+    response.delete_cookie('sessionid')
+    return response

@@ -7,7 +7,6 @@ import {
 
 import SpotifyProfile from './components/profile';
 import ArcadeHomescreen from './components/ArcadeHomescreen';
-import SettingsScreen from './components/Settings';
 
 function App() {
   return (
@@ -15,7 +14,6 @@ function App() {
       <Routes>
         <Route path="/" element={<ArcadeHomescreen />}/>
         <Route path="/dashboard" element={<SpotifyProfile />}/>
-        <Route path="/settings" element={<SettingsScreen />}/>
       </Routes>
     </Router>
   );
