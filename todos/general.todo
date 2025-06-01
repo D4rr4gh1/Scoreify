@@ -1,12 +1,12 @@
-☐ Add help section
-☐ Add logging out
-☐ Add Error handling if results are empty
+✔ Add help section @started(25-06-01 20:37) @done(25-06-01 20:52) @lasted(15m9s)
+✔ Add logging out @done(25-06-01 20:37)
+✔ Add Error handling if results are empty @done(25-06-01 20:37)
 
 Help Page:
-    ☐ Add button to return to dashboard
-    ☐ Info about revoking permissions
-    ☐ Info about me and my socials 
-    ☐ Info about what score means
-    ☐ Info about Spotify data collection
-    ☐ Mention that the app is not affiliated with Spotify
-    ☐ Mention the use of spotify API
+    ✔ Add button to return to dashboard @done(25-06-01 20:52)
+    ✔ Info about revoking permissions @done(25-06-01 20:52)
+    ✔ Info about me and my socials @done(25-06-01 20:52)
+    ✔ Info about what score means @done(25-06-01 20:36)
+    ✔ Info about Spotify data collection @done(25-06-01 20:36)
+    ✔ Mention that the app is not affiliated with Spotify @done(25-06-01 20:36)
+    ✔ Mention the use of spotify API @done(25-06-01 20:36)

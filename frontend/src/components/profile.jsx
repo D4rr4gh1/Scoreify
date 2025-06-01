@@ -5,6 +5,7 @@ import ArcadeError from './ArcadeError';
 import './profile.css';
 import { useNavigate } from 'react-router-dom';
 import ArcadeSettings from './ArcadeSettings';
+import ArcadeHelp from './ArcadeHelp';
 
 const SpotifyProfile = () => {
   const [error, setError] = useState(null);
@@ -13,6 +14,7 @@ const SpotifyProfile = () => {
   const [timeFrame, setTimeFrame] = useState('short_term');
   const [showSettings, setShowSettings] = useState(false);
   const [category, setCategory] = useState('tracks');
+  const [showHelp, setShowHelp] = useState(false);
   const navigate = useNavigate();
 
   if (error) {
@@ -67,6 +69,7 @@ const SpotifyProfile = () => {
         onTracksClick={() => handleCategoryChange('tracks')}
         onArtistsClick={() => handleCategoryChange('artists')}
         onSettingsClick={() => setShowSettings(true)}
+        onHelpClick={() => setShowHelp(true)}
       />
       <ArcadeSettings
         showSettings={showSettings}
@@ -77,6 +80,10 @@ const SpotifyProfile = () => {
         setTimeFrame={setTimeFrame}
         handleSaveSettings={handleSaveSettings}
         handleLogout={handleLogout}
+      />
+      <ArcadeHelp
+        showHelp={showHelp}
+        setShowHelp={setShowHelp}
       />
     </>
   );
