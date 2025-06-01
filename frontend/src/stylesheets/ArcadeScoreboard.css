@@ -87,7 +87,7 @@
 .arcade-btn {
   font-family: 'Press Start 2P', cursive;
   font-size: 1vw;
-  padding: 15px 30px;
+  padding: 15px;
   background: #111;
   color: #0f0;
   border: 3px solid #0f0;
@@ -98,12 +98,25 @@
     inset 0 0 5px rgba(0, 255, 0, 0.3);
   transition: all 0.2s ease;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arcade-btn svg {
+  width: 50px;
+  height: 50px;
+  stroke: currentColor;
 }
 
 .arcade-btn:hover {
   background: #0f0;
   color: #000;
   text-shadow: none;
+}
+
+.arcade-btn:hover svg {
+  stroke: #000;
 }
 
 .arcade-btn:active {

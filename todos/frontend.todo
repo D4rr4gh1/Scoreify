@@ -1,17 +1,15 @@
 ✔ Improve UI @done(25-05-23 20:17)
 ✔ Remove profile data from dashboard @done(25-05-23 20:17)
-✔ Add a logic to change time frame @started(25-06-01 14:10) @done(25-06-01 14:15) @lasted(5m49s)
+✔ Add logic to change time frame @started(25-06-01 14:10) @done(25-06-01 14:15) @lasted(5m49s)
 ✔ Fix length of screen segments @done(25-06-01 20:01)
-☐ Make each item a clickable link to the spotify page
-☐ Update settings and help page buttons to sit on right side and have icons
-☐ Add loading icon when one of the tracks or artists is being loaded
 ✔ If user goes directly to settings page, then tries to press back, it does not return to dashboard @done(25-06-01 14:39)
 ✔ Potentially refactor settings page to be a modal @started(25-05-31 14:54) @done(25-05-31 15:21) @lasted(27m28s)
-☐ Refactor profile page to display what the scoreboard page is displaying
 ✔ Finish implementing Modals @started(25-05-31 14:53) @done(25-05-31 15:21) @lasted(28m25s)
-☐ Change logic so that timeframe and list length are only saved if save is pressed, otherwise they are not saved
 ✔ Improve display of error messages, sit on error page for 3 seconds before redirecting to dashboard @done(25-06-01 20:52)
 ☐ Check if item has an artist, if it does, display the artist name
+☐ Make each item a clickable link to the spotify page
+☐ Update settings and help page buttons to sit on right side and have icons
+☐ Change logic so that timeframe and list length are only saved if save is pressed, otherwise they are not saved
 
 
 Extending List length:

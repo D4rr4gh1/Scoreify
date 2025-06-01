@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './ArcadeScoreboard.css';
+import '../stylesheets/ArcadeScoreboard.css';
 
 const ArcadeError = ({ message, onTimeout }) => {
   useEffect(() => {

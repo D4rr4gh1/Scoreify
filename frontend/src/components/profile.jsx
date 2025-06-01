@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import ArcadeScoreboard from './ArcadeScoreboard';
 import ArcadeError from './ArcadeError';
-import './profile.css';
+import '../stylesheets/profile.css';
 import { useNavigate } from 'react-router-dom';
 import ArcadeSettings from './ArcadeSettings';
 import ArcadeHelp from './ArcadeHelp';
@@ -16,6 +16,11 @@ const SpotifyProfile = () => {
   const [category, setCategory] = useState('tracks');
   const [showHelp, setShowHelp] = useState(false);
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    handleGetItems(category);
+  }, []);
 
   if (error) {
     return (

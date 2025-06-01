@@ -1,5 +1,6 @@
 import React from 'react';
-import './ArcadeScoreboard.css';
+import '../stylesheets/ArcadeScoreboard.css';
+import { SettingsIcon, HelpIcon } from './icons';
 
 const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsClick, onHelpClick}) => {
 
@@ -11,11 +12,20 @@ const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsCli
             <div className="screen-header">
               <h1>SCOREIFY</h1>
             </div>
-            <div className="arcade-buttons">
-              <button className="arcade-btn" onClick={onTracksClick}>TRACKS</button>
-              <button className="arcade-btn" onClick={onArtistsClick}>ARTISTS</button>
-              <button className='arcade-btn' onClick={onSettingsClick}>SETTINGS</button>
-              <button className='arcade-btn' onClick={onHelpClick}>HELP</button>
+            <div className="arcade-buttons" style={{ justifyContent: 'space-between' }}>
+              <div style={{ width: '100px' }}></div>
+              <div style={{ display: 'flex', gap: '20px' }}>
+                <button className="arcade-btn" onClick={onTracksClick}>TRACKS</button>
+                <button className="arcade-btn" onClick={onArtistsClick}>ARTISTS</button>
+              </div>
+              <div style={{ display: 'flex', gap: '20px', width: '100px', justifyContent: 'flex-end' }}>
+                <button className='arcade-btn' onClick={onSettingsClick}>
+                  <SettingsIcon />
+                </button>
+                <button className='arcade-btn' onClick={onHelpClick}>
+                  <HelpIcon />
+                </button>
+              </div>
             </div>
             <div className="score-list">
               <div className="score-entry">
