@@ -14,12 +14,13 @@ const SpotifyProfile = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [category, setCategory] = useState('tracks');
 
+
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   const getItems = (category) => { 
-    axios.get(`http://127.0.0.1:8000/scoreify/topitems/?items=${category}&limit=${listLength}`, {withCredentials: true})
+    axios.get(`http://127.0.0.1:8000/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
     .then(response => {
       setItems(response.data);
     })
@@ -33,6 +34,12 @@ const SpotifyProfile = () => {
     getItems(category);
   }
 
+  const handleLogout = () => {
+    axios.get('http://127.0.0.1:8000/scoreify/logout/', {withCredentials: true})
+    .then(response => {
+      console.log(response);
+    })
+  }
   const handleSaveSettings = () => {
     // TODO: Save settings logic here
     setShowSettings(false);
@@ -100,6 +107,13 @@ const SpotifyProfile = () => {
             className="arcade-btn"
           >
             SAVE
+          </Button>
+          <Button 
+            variant="danger" 
+            onClick={handleLogout}
+            className="arcade-btn"
+          >
+            LOGOUT
           </Button>
         </Modal.Footer>
       </Modal>

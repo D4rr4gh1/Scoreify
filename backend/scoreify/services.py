@@ -53,8 +53,8 @@ def getUserProfile(accessToken):
     response = requests.get(settings.SPOTIFY_URL, headers={ 'Authorization' : f"Bearer {accessToken}" })
     return response
 
-def getTopItems(accessToken, items, limit):
-    response = requests.get(f'https://api.spotify.com/v1/me/top/{items}?time_range=long_term&limit={limit}', headers={ 'Authorization' : f"Bearer {accessToken}" })
+def getTopItems(accessToken, items, limit, timeRange):
+    response = requests.get(f'https://api.spotify.com/v1/me/top/{items}?time_range={timeRange}&limit={limit}', headers={ 'Authorization' : f"Bearer {accessToken}" })
     return response 
 
 

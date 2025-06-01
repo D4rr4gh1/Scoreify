@@ -1,10 +1,10 @@
 ✔ Luke's account produces noe data @done(25-05-24 12:50)
 ☐ Look into storing access token in sesion storage
 ☐ Add a way to refresh the access token
-☐ Add ability to change time frame
-☐ Change top items logic -> Get recently played rather than top items, then sort by most played
+✔ Add ability to change time frame @started(25-06-01 14:10) @done(25-06-01 14:15) @lasted(5m45s)
+✔ Change top items logic -> Get recently played rather than top items, then sort by most played @done(25-06-01 14:39)
 
 Settings Page:
-    ☐ Send current list length and time frame to settings to be displayed in text box
-    ☐ When update settings is clicked, update state of list length and time frame
-    ☐ Resend get request with updated values for two params
+    ✔ Send current list length and time frame to settings to be displayed in text box @done(25-06-01 14:16)
+    ✔ When update settings is clicked, update state of list length and time frame @done(25-06-01 14:16)
+    ✔ Resend get request with updated values for two params @done(25-06-01 14:16)

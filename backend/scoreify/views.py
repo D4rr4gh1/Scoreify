@@ -42,6 +42,12 @@ def topItems(request):
     accessToken = request.session.get('accessToken')
     items = request.GET.get('items')
     limit = request.GET.get('limit')
+    timeRange = request.GET.get('time_range')
 
-    topTracksList = json.loads(getTopItems(accessToken, items, limit).text)
+    topTracksList = json.loads(getTopItems(accessToken, items, limit, timeRange).text)
     return JsonResponse(topTracksList['items'], safe=False)
+
+def logout(request):
+    requests.get('https://accounts.spotify.com/logout')
+    request.session.clear()
+    return HttpResponseRedirect('http://127.0.0.1:3000/')
