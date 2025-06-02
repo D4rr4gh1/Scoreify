@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.shortcuts import redirect
 import requests, os, base64, hashlib
-
+import logging
 
 def authoriseUser(request):
 
@@ -10,6 +10,7 @@ def authoriseUser(request):
     challenge = generateCodeChallenge(verifier)
 
     request.session['verifier'] = verifier
+    logging.info("Session ID when verifier is set: %s", request.session.session_key)
 
     authURL = f"https://accounts.spotify.com/authorize?client_id={settings.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri={settings.BACKEND_URL}/scoreify/callback/&code_challenge_method=S256&code_challenge={challenge}""&scope=user-read-private user-read-email user-top-read"
 

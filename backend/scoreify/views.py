@@ -31,6 +31,7 @@ def callback(request):
     # If it is the callback from the spotify API, lets check if they are verified
     # and then extract the user data
     elif code:
+        logging.info("Session ID when code is good: %s", request.session.session_key)
         codeVerifier = request.session.get('verifier')
         logging.info("Code verifier from session: %s", codeVerifier)
 
@@ -51,7 +52,6 @@ def topItems(request):
     logging.info("Request received for topItems")
     logging.info("Request headers: %s", dict(request.headers))
     logging.info("Request cookies: %s", request.COOKIES)
-    logging.info("Request META: %s", {k: v for k, v in request.META.items() if k.startswith('HTTP_')})
     
     accessToken = request.session.get('accessToken')
     
