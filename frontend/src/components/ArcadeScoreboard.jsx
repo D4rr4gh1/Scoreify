@@ -1,6 +1,7 @@
 import React from 'react';
 import '../stylesheets/ArcadeScoreboard.css';
 import { SettingsIcon, HelpIcon } from './icons';
+import { Link } from 'react-router-dom';
 
 const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsClick, onHelpClick}) => {
 
@@ -14,11 +15,11 @@ const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsCli
             </div>
             <div className="arcade-buttons" style={{ justifyContent: 'space-between' }}>
               <div style={{ width: '100px' }}></div>
-              <div style={{ display: 'flex', gap: '20px' }}>
+              <div style={{ display: 'flex', gap: '20px', minWidth: 'fit-content' }}>
                 <button className="arcade-btn" onClick={onTracksClick}>TRACKS</button>
                 <button className="arcade-btn" onClick={onArtistsClick}>ARTISTS</button>
               </div>
-              <div style={{ display: 'flex', gap: '20px', width: '100px', justifyContent: 'flex-end' }}>
+              <div style={{ display: 'flex', gap: '20px', width: '100px', justifyContent: 'flex-end', minWidth: 'fit-content'  }}>
                 <button className='arcade-btn' onClick={onSettingsClick}>
                   <SettingsIcon />
                 </button>
@@ -35,8 +36,14 @@ const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsCli
               </div>
               {scores.map((score, index) => (
                 <div key={index} className="score-entry">
+                  {console.log(score)}
                   <span className="rank">{(index + 1).toString().padStart(2, '0')}</span>
-                  <span className="name">{score.name.toUpperCase().padEnd(12, ' ')}</span>
+                  <span className="name">
+                    <Link to={score.url} target="_blank" className="item-link">
+                      {score.name.toUpperCase().padEnd(12, ' ')}
+                      {score.artist && <span className="artist"> - {score.artist.toUpperCase().padEnd(12, ' ')}</span>}
+                    </Link>
+                  </span>
                   <span className="score">{score.score.toString().padStart(6, '0')}</span>
                 </div>
               ))}

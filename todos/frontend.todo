@@ -6,10 +6,10 @@
 ✔ Potentially refactor settings page to be a modal @started(25-05-31 14:54) @done(25-05-31 15:21) @lasted(27m28s)
 ✔ Finish implementing Modals @started(25-05-31 14:53) @done(25-05-31 15:21) @lasted(28m25s)
 ✔ Improve display of error messages, sit on error page for 3 seconds before redirecting to dashboard @done(25-06-01 20:52)
-☐ Check if item has an artist, if it does, display the artist name
-☐ Make each item a clickable link to the spotify page
-☐ Update settings and help page buttons to sit on right side and have icons
-☐ Change logic so that timeframe and list length are only saved if save is pressed, otherwise they are not saved
+✔ Check if item has an artist, if it does, display the artist name @done(25-06-02 13:37)
+✔ Make each item a clickable link to the spotify page @done(25-06-02 13:37)
+✔ Update settings and help page buttons to sit on right side and have icons @done(25-06-01 21:28)
+✔ Change logic so that timeframe and list length are only saved if save is pressed, otherwise they are not saved @started(25-06-02 12:47) @done(25-06-02 13:23) @lasted(36m4s)
 
 
 Extending List length:

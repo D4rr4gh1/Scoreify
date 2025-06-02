@@ -31,9 +31,10 @@ const SpotifyProfile = () => {
     );
   }
 
-  const handleGetItems = (category) => { 
+  const handleGetItemsWithParams = (category, listLength, timeFrame) => { 
     axios.get(`http://127.0.0.1:8000/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
     .then(response => {
+      console.log(response.data);
       setItems(response.data);
     })
     .catch(err => {
@@ -43,6 +44,10 @@ const SpotifyProfile = () => {
       }, 3000);
     });
   };
+
+  const handleGetItems = (category) => {
+    handleGetItemsWithParams(category, listLength, timeFrame);
+  }
 
   const handleLogout = () => {
     axios.get('http://127.0.0.1:8000/scoreify/logout/', { withCredentials: true })
@@ -59,9 +64,11 @@ const SpotifyProfile = () => {
     handleGetItems(category);
   }
 
-  const handleSaveSettings = () => {
+  const handleSaveSettings = (updatedListLength, updatedTimeFrame) => {
+    setListLength(updatedListLength);
+    setTimeFrame(updatedTimeFrame);
     setShowSettings(false);
-    handleGetItems(category);
+    handleGetItemsWithParams(category, updatedListLength, updatedTimeFrame);
   }
 
   return (
@@ -69,7 +76,9 @@ const SpotifyProfile = () => {
       <ArcadeScoreboard 
         scores={items.map(item => ({
           name: item.name,
-          score: item.popularity
+          score: item.popularity,
+          artist: item.artists ? item.artists[0].name : null,
+          url: item.external_urls.spotify
         }))}
         onTracksClick={() => handleCategoryChange('tracks')}
         onArtistsClick={() => handleCategoryChange('artists')}

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-const ArcadeSettings = ({showSettings, setShowSettings, listLength, setListLength, timeFrame, setTimeFrame, handleSaveSettings, handleLogout}) => {
+const ArcadeSettings = ({showSettings, setShowSettings, listLength, timeFrame, handleSaveSettings, handleLogout}) => {
+  const [currentListLength, setCurrentListLength] = useState(listLength);
+  const [currentTimeFrame, setCurrentTimeFrame] = useState(timeFrame);
+
   return (
     <Modal 
     show={showSettings} 
@@ -16,21 +19,23 @@ const ArcadeSettings = ({showSettings, setShowSettings, listLength, setListLengt
     <Modal.Body>
       <div className="settings-content">
         <div className="setting-item">
-          <label className="arcade-text">List Length:</label>
-          <input 
+          <label className="arcade-text" htmlFor="list-length">List Length:</label>
+          <input
+            id="list-length"
             type="number" 
-            value={listLength}
-            onChange={(e) => setListLength(parseInt(e.target.value))}
+            value={currentListLength.toString()}
+            onChange={(e) => setCurrentListLength(parseInt(e.target.value))}
             min="1"
             max="50"
             className="arcade-input"
           />
         </div>
         <div className="setting-item">
-          <label className="arcade-text">Time Frame:</label>
+          <label className="arcade-text" htmlFor="time-frame">Time Frame:</label>
           <select 
-            value={timeFrame}
-            onChange={(e) => setTimeFrame(e.target.value)}
+            id="time-frame"
+            value={currentTimeFrame.toString()}
+            onChange={(e) => setCurrentTimeFrame(e.target.value)}
             className="arcade-input" 
           >
             <option value="short_term">Short Term</option>
@@ -50,7 +55,7 @@ const ArcadeSettings = ({showSettings, setShowSettings, listLength, setListLengt
       </Button>
       <Button 
         variant="primary" 
-        onClick={handleSaveSettings}
+        onClick={() => handleSaveSettings(currentListLength, currentTimeFrame)}
         className="arcade-btn"
       >
         SAVE

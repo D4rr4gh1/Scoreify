@@ -14,14 +14,19 @@ def callback(request):
 
     #Check if this is the initial call to the callback function or the callback from spotify
     code = request.GET.get("code")
+    error = request.GET.get("error")
 
     # If it is the initial call, authorise the user
-    if code == None:
+    if code == None and error == None:
         return authoriseUser(request)
+    
+    # If there is an error, we need to handle it
+    elif error:
+        return HttpResponseRedirect('http://127.0.0.1:3000/')
     
     # If it is the callback from the spotify API, lets check if they are verified
     # and then extract the user data
-    else:
+    elif code:
         codeVerifier = request.session.get('verifier')
 
         if not codeVerifier:

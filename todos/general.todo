@@ -1,6 +1,7 @@
 ✔ Add help section @started(25-06-01 20:37) @done(25-06-01 20:52) @lasted(15m9s)
 ✔ Add logging out @done(25-06-01 20:37)
 ✔ Add Error handling if results are empty @done(25-06-01 20:37)
+☐ Put on heroku or some other hosting service
 
 Help Page:
     ✔ Add button to return to dashboard @done(25-06-01 20:52)
