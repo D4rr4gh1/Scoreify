@@ -4,6 +4,7 @@ from django.conf import settings
 from .services import *
 import json
 from django.views.decorators.csrf import csrf_exempt
+import logging
 
 def index(request): 
     return HttpResponse("HELLO WORLD")
@@ -32,14 +33,15 @@ def callback(request):
             return HttpResponse("Missing Verifier", status=400)
         
         accessToken = getAccessToken(code, codeVerifier)
-        print(accessToken)
+        logging.info(f"Access token when set: {accessToken}")
         request.session['accessToken'] = accessToken
 
         return HttpResponseRedirect(f'{settings.FRONTEND_URL}/dashboard')
 
 def topItems(request):
     accessToken = request.session.get('accessToken')
-    print(accessToken)
+
+    logging.info(f"Access token when get: {accessToken}")
     if not accessToken:
         return HttpResponse(status=401, content="No access token found. User is not logged in.")
     
