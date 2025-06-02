@@ -40,8 +40,11 @@ def callback(request):
 
 def topItems(request):
     accessToken = request.session.get('accessToken')
-
-    logging.info(f"Access token when get: {accessToken}")
+    
+    logging.info("Session ID: %s", request.session.session_key)
+    logging.info("All session data: %s", dict(request.session))
+    logging.info("Access token when get: %s", accessToken)
+    
     if not accessToken:
         return HttpResponse(status=401, content="No access token found. User is not logged in.")
     
