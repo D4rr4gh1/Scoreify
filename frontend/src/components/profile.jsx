@@ -18,7 +18,7 @@ const SpotifyProfile = () => {
   const navigate = useNavigate();
 
   const handleGetItems = useCallback((category, listLength, timeFrame) => { 
-    axios.get(`http://127.0.0.1:8000/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
+    axios.get(`https://scoreify-4vc1.onrender.com/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
     .then(response => {
       console.log(response.data);
       setItems(response.data);
@@ -45,7 +45,7 @@ const SpotifyProfile = () => {
   }
 
   const handleLogout = () => {
-    axios.get('http://127.0.0.1:8000/scoreify/logout/', { withCredentials: true })
+    axios.get('https://scoreify-4vc1.onrender.com/scoreify/logout/', { withCredentials: true })
       .then(() => {
         setError('LOGOUT SUCCESSFUL');
       })

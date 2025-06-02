@@ -21,7 +21,7 @@ def callback(request):
     
     # If there is an error, we need to handle it
     elif error:
-        return HttpResponseRedirect('http://127.0.0.1:3000/')
+        return HttpResponseRedirect('https://scoreify.vercel.app/')
     
     # If it is the callback from the spotify API, lets check if they are verified
     # and then extract the user data
@@ -34,7 +34,7 @@ def callback(request):
         accessToken = getAccessToken(code, codeVerifier)
         request.session['accessToken'] = accessToken
 
-        return HttpResponseRedirect('http://127.0.0.1:3000/dashboard')
+        return HttpResponseRedirect('https://scoreify.vercel.app/dashboard')
     
 def spotifyProfile(request):  
     accessToken = request.session.get('accessToken')

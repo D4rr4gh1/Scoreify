@@ -22,12 +22,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-bc(m^2_kjz&zs-6rc9jkwy2k1c93wwzym4y%@kc6d(7=k(z8&n"
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+# Production security settings
+SECURE_SSL_REDIRECT = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+ALLOWED_HOSTS = [
+    "scoreify-4vc1.onrender.com",
+]
 
 
 # Application definition
@@ -55,7 +67,10 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://192.168.1.162:3000",
-    "http://127.0.0.1:3000"
+    "http://127.0.0.1:3000",
+    "https://scoreify.vercel.app",
+    "https://scoreify-darraghs-projects-6b69552f.vercel.app",
+    "https://scoreify-git-main-darraghs-projects-6b69552f.vercel.app"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
