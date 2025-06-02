@@ -155,24 +155,34 @@ SPOTIFY_CLIENT_SECRET = config('SPOTIFY_CLIENT_SECRET')
 
 SPOTIFY_URL = "https://api.spotify.com/v1/me"
 
-SESSION_ENGINE = "django.contrib.sessions.backends.db"
-SESSION_CACHE_ALIAS = "default"
-
-# Security Settings for Production
-SESSION_COOKIE_SECURE = not DEBUG
-CSRF_COOKIE_SECURE = not DEBUG
-SESSION_COOKIE_AGE = 3600
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
 # Cookie Settings
-SESSION_COOKIE_DOMAIN = "scoreify-4vc1.onrender.com" if not DEBUG else None
+SESSION_COOKIE_DOMAIN = None  # Allow the cookie to work on any subdomain
 SESSION_COOKIE_SAMESITE = 'None' if not DEBUG else 'Lax'
 CSRF_COOKIE_SAMESITE = 'None' if not DEBUG else 'Lax'
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_HTTPONLY = True
 
 # Additional CORS Settings
 CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = ['Set-Cookie']
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+# Session Settings
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_CACHE_ALIAS = "default"
+SESSION_COOKIE_AGE = 7200  # 2 hours instead of 1
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Don't expire when browser closes
 
 CSRF_TRUSTED_ORIGINS = [
     "https://scoreify-4vc1.onrender.com",

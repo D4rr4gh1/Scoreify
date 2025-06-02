@@ -25,7 +25,7 @@ const SpotifyProfile = () => {
       setItems(response.data);
     })
     .catch(err => {
-      setError(err.response?.data || 'ERROR');
+      setError({msg: err.response?.data || 'ERROR', code: err.response?.status || 500});
       setTimeout(() => {
         navigate('/', {replace: true});
       }, 3000);
@@ -39,8 +39,10 @@ const SpotifyProfile = () => {
   if (error) {
     return (
       <ArcadeError 
-        message={error}
-        onTimeout={() => navigate('/', { replace: true })}
+        message={error.msg}
+        onTimeout={error.code === 400 ? 
+          () => { setTimeout(() => setError(null), 3000); navigate('/dashboard', { replace: true }) } : 
+          () => { setTimeout(() => setError(null), 3000); navigate('/', { replace: true }) }}
       />
     );
   }
@@ -48,14 +50,22 @@ const SpotifyProfile = () => {
   const handleLogout = () => {
     axios.get(`${getApiUrl()}/scoreify/logout/`, { withCredentials: true })
       .then(() => {
-        setError('LOGOUT SUCCESSFUL');
+        setError({msg: 'LOGOUT SUCCESSFUL', code: 200});
       })
       .catch(err => {
-        setError(err.response?.data || 'LOGOUT ERROR');
+        setError({msg: err.response?.data || 'LOGOUT ERROR', code: err.response?.status || 500});
       });
   };
 
   const handleSaveSettings = (updatedListLength, updatedTimeFrame) => {
+    if (updatedListLength < 1 || updatedListLength > 50) {
+      setError({msg: 'LIST LENGTH MUST BE BETWEEN 1 AND 50', code: 400});
+      return;
+    }
+    if (updatedTimeFrame !== 'short_term' && updatedTimeFrame !== 'medium_term' && updatedTimeFrame !== 'long_term') {
+      setError({msg: 'TIME FRAME MUST BE EITHER SHORT, MEDIUM, OR LONG', code: 400});
+      return;
+    }
     setListLength(updatedListLength);
     setTimeFrame(updatedTimeFrame);
     setShowSettings(false);
