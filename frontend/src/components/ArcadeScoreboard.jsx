@@ -14,7 +14,7 @@ const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsCli
               <h1>SCOREIFY</h1>
             </div>
             <div className="arcade-buttons" style={{ justifyContent: 'space-between' }}>
-              <div style={{ width: '100px' }}></div>
+              <div style={{ width: '130px' }}></div>
               <div style={{ display: 'flex', gap: '20px', minWidth: 'fit-content' }}>
                 <button className="arcade-btn" onClick={onTracksClick}>TRACKS</button>
                 <button className="arcade-btn" onClick={onArtistsClick}>ARTISTS</button>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import axios from 'axios';
 import ArcadeScoreboard from './ArcadeScoreboard';
 import ArcadeError from './ArcadeError';
@@ -17,21 +17,7 @@ const SpotifyProfile = () => {
   const [showHelp, setShowHelp] = useState(false);
   const navigate = useNavigate();
 
-
-  useEffect(() => {
-    handleGetItems(category);
-  }, []);
-
-  if (error) {
-    return (
-      <ArcadeError 
-        message={error}
-        onTimeout={() => navigate('/', { replace: true })}
-      />
-    );
-  }
-
-  const handleGetItemsWithParams = (category, listLength, timeFrame) => { 
+  const handleGetItems = useCallback((category, listLength, timeFrame) => { 
     axios.get(`http://127.0.0.1:8000/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
     .then(response => {
       console.log(response.data);
@@ -43,10 +29,19 @@ const SpotifyProfile = () => {
         navigate('/', {replace: true});
       }, 3000);
     });
-  };
+  }, [navigate]);
 
-  const handleGetItems = (category) => {
-    handleGetItemsWithParams(category, listLength, timeFrame);
+  useEffect(() => {
+    handleGetItems(category, listLength, timeFrame);
+  }, [category, listLength, timeFrame, handleGetItems]);
+
+  if (error) {
+    return (
+      <ArcadeError 
+        message={error}
+        onTimeout={() => navigate('/', { replace: true })}
+      />
+    );
   }
 
   const handleLogout = () => {
@@ -59,16 +54,10 @@ const SpotifyProfile = () => {
       });
   };
 
-  const handleCategoryChange = (category) => {
-    setCategory(category);
-    handleGetItems(category);
-  }
-
   const handleSaveSettings = (updatedListLength, updatedTimeFrame) => {
     setListLength(updatedListLength);
     setTimeFrame(updatedTimeFrame);
     setShowSettings(false);
-    handleGetItemsWithParams(category, updatedListLength, updatedTimeFrame);
   }
 
   return (
@@ -80,8 +69,8 @@ const SpotifyProfile = () => {
           artist: item.artists ? item.artists[0].name : null,
           url: item.external_urls.spotify
         }))}
-        onTracksClick={() => handleCategoryChange('tracks')}
-        onArtistsClick={() => handleCategoryChange('artists')}
+        onTracksClick={() => setCategory('tracks')}
+        onArtistsClick={() => setCategory('artists')}
         onSettingsClick={() => setShowSettings(true)}
         onHelpClick={() => setShowHelp(true)}
       />
