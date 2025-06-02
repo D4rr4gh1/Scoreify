@@ -11,7 +11,7 @@ def authoriseUser(request):
 
     request.session['verifier'] = verifier
 
-    authURL = f"https://accounts.spotify.com/authorize?client_id={settings.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=https://scoreify-4vc1.onrender.com/scoreify/callback/&code_challenge_method=S256&code_challenge={challenge}""&scope=user-read-private user-read-email user-top-read"
+    authURL = f"https://accounts.spotify.com/authorize?client_id={settings.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri={settings.BACKEND_URL}/scoreify/callback/&code_challenge_method=S256&code_challenge={challenge}""&scope=user-read-private user-read-email user-top-read"
 
     return redirect(authURL)
 
@@ -40,7 +40,7 @@ def getAccessToken(code, codeVerifier):
     postData = {
     "client_id" : settings.SPOTIFY_CLIENT_ID,
     "grant_type" : "authorization_code",
-    "redirect_uri": "https://scoreify-4vc1.onrender.com/scoreify/callback/",
+    "redirect_uri": f"{settings.BACKEND_URL}/scoreify/callback/",
     "code" : code,
     "code_verifier" : codeVerifier
     }

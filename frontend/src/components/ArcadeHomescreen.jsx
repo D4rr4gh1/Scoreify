@@ -1,5 +1,6 @@
 import React from 'react';
 import '../stylesheets/ArcadeScoreboard.css';
+import { getApiUrl } from '../config';
 
 const ArcadeHomescreen = () => {
     return (
@@ -11,7 +12,7 @@ const ArcadeHomescreen = () => {
                             <h1>WELCOME TO SCOREIFY</h1>
                         </div>
                         <div className="arcade-buttons">
-                            <button className="arcade-btn" onClick={() => window.location.href = "https://scoreify-4vc1.onrender.com/scoreify/callback/"}>LOGIN</button>
+                            <button className="arcade-btn" onClick={() => window.location.href = `${getApiUrl()}/scoreify/callback/`}>LOGIN</button>
                         </div>
                     </div>
                 </div>

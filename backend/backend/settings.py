@@ -39,6 +39,8 @@ SECURE_HSTS_PRELOAD = True
 
 ALLOWED_HOSTS = [
     "scoreify-4vc1.onrender.com",
+    "127.0.0.1",
+    "localhost"
 ]
 
 
@@ -166,3 +168,6 @@ CSRF_TRUSTED_ORIGINS = [
     "https://scoreify-4vc1.onrender.com",
     "https://scoreify.vercel.app"
 ]
+
+FRONTEND_URL = "http://127.0.0.1:3000" if DEBUG else "https://scoreify.vercel.app"
+BACKEND_URL = "http://127.0.0.1:8000" if DEBUG else "https://scoreify-4vc1.onrender.com"

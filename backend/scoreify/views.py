@@ -21,7 +21,7 @@ def callback(request):
     
     # If there is an error, we need to handle it
     elif error:
-        return HttpResponseRedirect('https://scoreify.vercel.app/')
+        return HttpResponseRedirect(f'{settings.FRONTEND_URL}')
     
     # If it is the callback from the spotify API, lets check if they are verified
     # and then extract the user data
@@ -32,19 +32,14 @@ def callback(request):
             return HttpResponse("Missing Verifier", status=400)
         
         accessToken = getAccessToken(code, codeVerifier)
+        print(accessToken)
         request.session['accessToken'] = accessToken
 
-        return HttpResponseRedirect('https://scoreify.vercel.app/dashboard')
-    
-def spotifyProfile(request):  
-    accessToken = request.session.get('accessToken')
-
-    profileData = getUserProfile(accessToken)
-
-    return HttpResponse(profileData)
+        return HttpResponseRedirect(f'{settings.FRONTEND_URL}/dashboard')
 
 def topItems(request):
     accessToken = request.session.get('accessToken')
+    print(accessToken)
     if not accessToken:
         return HttpResponse(status=401, content="No access token found. User is not logged in.")
     

@@ -6,6 +6,7 @@ import '../stylesheets/profile.css';
 import { useNavigate } from 'react-router-dom';
 import ArcadeSettings from './ArcadeSettings';
 import ArcadeHelp from './ArcadeHelp';
+import { getApiUrl } from '../config';
 
 const SpotifyProfile = () => {
   const [error, setError] = useState(null);
@@ -18,7 +19,7 @@ const SpotifyProfile = () => {
   const navigate = useNavigate();
 
   const handleGetItems = useCallback((category, listLength, timeFrame) => { 
-    axios.get(`https://scoreify-4vc1.onrender.com/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
+    axios.get(`${getApiUrl()}/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
     .then(response => {
       console.log(response.data);
       setItems(response.data);
@@ -45,7 +46,7 @@ const SpotifyProfile = () => {
   }
 
   const handleLogout = () => {
-    axios.get('https://scoreify-4vc1.onrender.com/scoreify/logout/', { withCredentials: true })
+    axios.get(`${getApiUrl()}/scoreify/logout/`, { withCredentials: true })
       .then(() => {
         setError('LOGOUT SUCCESSFUL');
       })
