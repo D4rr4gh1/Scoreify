@@ -308,7 +308,7 @@ spyder==6.0.5
 spyder-kernels==3.0.3
 SQLAlchemy==2.0.37
 sqlparse==0.5.3
-sqlite3==3.44.0
+sqlite3
 stack-data==0.2.0
 statsmodels==0.14.4
 streamlit==1.44.1
