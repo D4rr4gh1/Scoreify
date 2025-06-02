@@ -99,7 +99,12 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {}
+DATABASES = {
+        'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
+    }
+}
 
 
 # Password validation
@@ -148,5 +153,16 @@ SPOTIFY_CLIENT_SECRET = config('SPOTIFY_CLIENT_SECRET')
 
 SPOTIFY_URL = "https://api.spotify.com/v1/me"
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SESSION_CACHE_ALIAS = "default"
+
+# Security Settings for Production
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_AGE = 3600
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://scoreify-4vc1.onrender.com",
+    "https://scoreify.vercel.app"
+]
