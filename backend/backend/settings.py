@@ -164,6 +164,16 @@ CSRF_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_AGE = 3600
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+# Cookie Settings
+SESSION_COOKIE_DOMAIN = "scoreify-4vc1.onrender.com" if not DEBUG else None
+SESSION_COOKIE_SAMESITE = 'None' if not DEBUG else 'Lax'
+CSRF_COOKIE_SAMESITE = 'None' if not DEBUG else 'Lax'
+SESSION_COOKIE_HTTPONLY = True
+
+# Additional CORS Settings
+CORS_ALLOW_CREDENTIALS = True
+CORS_EXPOSE_HEADERS = ['Set-Cookie']
+
 CSRF_TRUSTED_ORIGINS = [
     "https://scoreify-4vc1.onrender.com",
     "https://scoreify.vercel.app"
@@ -171,3 +181,41 @@ CSRF_TRUSTED_ORIGINS = [
 
 FRONTEND_URL = "http://127.0.0.1:3000" if DEBUG else "https://scoreify.vercel.app"
 BACKEND_URL = "http://127.0.0.1:8000" if DEBUG else "https://scoreify-4vc1.onrender.com"
+
+# Logging Configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        '': {  # Root logger
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'scoreify': {  # Your app logger
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {  # Request logger
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
