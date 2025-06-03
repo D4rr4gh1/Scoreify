@@ -17,3 +17,4 @@ Hosting:
     ☐ Make it easier to flip between production and development, switching URLs and ports
 
 ☐ Setup short lived DB for session data, and use it to store the access token to avoid having to store it in the session
+☐ Check if user has cookies disabled, if they do, tell them to enable them

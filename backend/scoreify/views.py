@@ -44,10 +44,16 @@ def callback(request):
         
         accessToken = getAccessToken(code, codeVerifier)
         logging.info("Access token obtained: %s", accessToken)
-        request.session['accessToken'] = accessToken
-        logging.info("Access token set in session. Session ID: %s", request.session.session_key)
         
         response = HttpResponseRedirect(f'{settings.FRONTEND_URL}/dashboard')
+        response.set_cookie(
+            "accessToken",
+            accessToken,
+            httponly=True,
+            secure=True,
+            samesite="None",
+            max_age=3600,
+        )
         logging.info("Redirecting to dashboard with session cookie: %s", response.cookies)
         return response
 
@@ -56,7 +62,7 @@ def topItems(request):
     logging.info("Request headers: %s", dict(request.headers))
     logging.info("Request cookies: %s", request.COOKIES)
     
-    accessToken = request.session.get('accessToken')
+    accessToken = request.COOKIES.get('accessToken')
     
     logging.info("Session ID: %s", request.session.session_key)
     logging.info("All session data: %s", dict(request.session))
