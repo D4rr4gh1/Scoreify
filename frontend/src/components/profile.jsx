@@ -21,7 +21,6 @@ const SpotifyProfile = () => {
   const handleGetItems = useCallback((category, listLength, timeFrame) => { 
     axios.get(`${getApiUrl()}/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
     .then(response => {
-      console.log(response.data);
       setItems(response.data);
     })
     .catch(err => {

@@ -15,3 +15,5 @@ Help Page:
 Hosting:
     ☐ Update port and URL usage
     ☐ Make it easier to flip between production and development, switching URLs and ports
+
+☐ Setup short lived DB for session data, and use it to store the access token to avoid having to store it in the session

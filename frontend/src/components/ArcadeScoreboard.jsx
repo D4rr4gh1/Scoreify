@@ -36,7 +36,6 @@ const ArcadeScoreboard = ({ scores, onTracksClick, onArtistsClick, onSettingsCli
               </div>
               {scores.map((score, index) => (
                 <div key={index} className="score-entry">
-                  {console.log(score)}
                   <span className="rank">{(index + 1).toString().padStart(2, '0')}</span>
                   <span className="name">
                     <Link to={score.url} target="_blank" className="item-link">

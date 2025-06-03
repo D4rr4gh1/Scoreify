@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.shortcuts import redirect
+from django.core.signing import Signer
 import requests, os, base64, hashlib
 import logging
 
@@ -9,10 +10,11 @@ def authoriseUser(request):
     verifier = generateCodeVerifier()
     challenge = generateCodeChallenge(verifier)
 
-    request.session['verifier'] = verifier
-    logging.info("Session ID when verifier is set: %s", request.session.session_key)
+    # Sign the verifier and store it in the session
+    signer = Signer()
+    signed_verifier = signer.sign(verifier)
 
-    authURL = f"https://accounts.spotify.com/authorize?client_id={settings.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri={settings.BACKEND_URL}/scoreify/callback/&code_challenge_method=S256&code_challenge={challenge}""&scope=user-read-private user-read-email user-top-read"
+    authURL = f"https://accounts.spotify.com/authorize?client_id={settings.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri={settings.BACKEND_URL}/scoreify/callback/&code_challenge_method=S256&code_challenge={challenge}&scope=user-read-private user-read-email user-top-read&state={signed_verifier}"
 
     return redirect(authURL)
 
