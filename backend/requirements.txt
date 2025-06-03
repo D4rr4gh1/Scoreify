@@ -364,3 +364,4 @@ zipp==3.21.0
 zope.interface==7.1.1
 zstandard==0.23.0
 dj-database-url==3.0.0
+psycopg2-binary==2.9.10
