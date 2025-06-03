@@ -18,3 +18,5 @@ Hosting:
 
 ☐ Setup short lived DB for session data, and use it to store the access token to avoid having to store it in the session
 ☐ Check if user has cookies disabled, if they do, tell them to enable them
+☐ Sort out refresh token
+☐ Get database to delete expired sessions

@@ -3,12 +3,14 @@ import axios from 'axios';
 import ArcadeScoreboard from './ArcadeScoreboard';
 import ArcadeError from './ArcadeError';
 import '../stylesheets/profile.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import ArcadeSettings from './ArcadeSettings';
 import ArcadeHelp from './ArcadeHelp';
 import { getApiUrl } from '../config';
 
 const SpotifyProfile = () => {
+  const [searchParams] = useSearchParams();
+  const sessionID = searchParams.get('session_id');
   const [error, setError] = useState(null);
   const [items, setItems] = useState([]);
   const [listLength, setListLength] = useState(20);
@@ -18,8 +20,9 @@ const SpotifyProfile = () => {
   const [showHelp, setShowHelp] = useState(false);
   const navigate = useNavigate();
 
+
   const handleGetItems = useCallback((category, listLength, timeFrame) => { 
-    axios.get(`${getApiUrl()}/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}`, {withCredentials: true})
+    axios.get(`${getApiUrl()}/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}&session_id=${sessionID}`, {withCredentials: true})
     .then(response => {
       setItems(response.data);
     })
@@ -46,8 +49,15 @@ const SpotifyProfile = () => {
     );
   }
 
+  if (!sessionID) {
+    setError({msg: 'SESSION ID NOT IN URL', code: 400});
+    setTimeout(() => {
+      navigate('/', {replace: true});
+    }, 3000);
+  }
+
   const handleLogout = () => {
-    axios.get(`${getApiUrl()}/scoreify/logout/`, { withCredentials: true })
+    axios.get(`${getApiUrl()}/scoreify/logout/?session_id=${sessionID}`, { withCredentials: true })
       .then(() => {
         setError({msg: 'LOGOUT SUCCESSFUL', code: 200});
       })

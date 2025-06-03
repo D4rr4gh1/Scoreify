@@ -2,6 +2,7 @@ from django.core.signing import Signer
 from django.http import HttpResponse,JsonResponse, HttpResponseRedirect
 from django.conf import settings
 from .services import *
+from .models import customSession
 import json
 from django.views.decorators.csrf import csrf_exempt
 import logging
@@ -31,39 +32,46 @@ def callback(request):
     # If it is the callback from the spotify API, lets check if they are verified
     # and then extract the user data
     elif code:
-        signedVerifier = request.GET.get("state")
+        sessionID = request.GET.get("state")
+        logging.info("Session ID: %s", sessionID)
 
-        signer = Signer()
         try:
-            codeVerifier = signer.unsign(signedVerifier)
-        except Exception as e:
-            logging.error("Error unsing verifier: %s", e)
-            return HttpResponse("Error unsigned verifier", status=400)
+            session = customSession.objects.get(session_id=sessionID)
+            if session.is_expired():
+                logging.error("Session expired")
+                return HttpResponse(status=400, content="Session expired during callback")
+        except customSession.DoesNotExist:
+            logging.error("Session not found")
+            return HttpResponse(status=400, content="Session not found during callback")
+        
+        codeVerifier = session.verifier
         
         logging.info("Code verifier from session: %s", codeVerifier)
         
         accessToken = getAccessToken(code, codeVerifier)
-        logging.info("Access token obtained: %s", accessToken)
+        print("Access token is: %s", accessToken)
+
+        session.access_token = accessToken
+        session.save(update_fields=['access_token'])
         
-        response = HttpResponseRedirect(f'{settings.FRONTEND_URL}/dashboard')
-        response.set_cookie(
-            "accessToken",
-            accessToken,
-            httponly=True,
-            secure=True,
-            samesite="None",
-            max_age=3600,
-        )
-        logging.info("Redirecting to dashboard with session cookie: %s", response.cookies)
+        response = HttpResponseRedirect(f'{settings.FRONTEND_URL}/dashboard/?session_id={sessionID}')
         return response
 
 def topItems(request):
     logging.info("Request received for topItems")
-    logging.info("Request headers: %s", dict(request.headers))
-    logging.info("Request cookies: %s", request.COOKIES)
+    session_id = request.GET.get("session_id")
+
+    try:
+        session = customSession.objects.get(session_id=session_id)
+        if session.is_expired():
+            logging.error("Session expired")
+            return HttpResponse(status=400, content="Session expired when getting items")
+    except customSession.DoesNotExist:
+        logging.error("Session not found when getting items")
+        return HttpResponse(status=400, content="Session not found when getting items")
     
-    accessToken = request.COOKIES.get('accessToken')
-    
+    accessToken = session.access_token
+
     logging.info("Session ID: %s", request.session.session_key)
     logging.info("All session data: %s", dict(request.session))
     logging.info("Access token when get: %s", accessToken)
@@ -85,7 +93,13 @@ def topItems(request):
 
 @csrf_exempt
 def logout(request):
-    request.session.flush()
+    session_id = request.GET.get("session_id")
+    try:
+        session = customSession.objects.get(session_id=session_id)
+        session.delete()
+    except customSession.DoesNotExist:
+        logging.error("Session not found when logging out")
+        return HttpResponse(status=400, content="Session not found when logging out")
+    
     response = HttpResponse(status=200)
-    response.delete_cookie('sessionid')
     return response

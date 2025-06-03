@@ -2,19 +2,17 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.core.signing import Signer
 import requests, os, base64, hashlib
-import logging
+from .models import customSession
 
 def authoriseUser(request):
 
     # Generate the verifier and challenge needed to auth
-    verifier = generateCodeVerifier()
-    challenge = generateCodeChallenge(verifier)
+    codeVerifier = generateCodeVerifier()
+    challenge = generateCodeChallenge(codeVerifier)
+    session = customSession.objects.create(verifier=codeVerifier)
 
     # Sign the verifier and store it in the session
-    signer = Signer()
-    signed_verifier = signer.sign(verifier)
-
-    authURL = f"https://accounts.spotify.com/authorize?client_id={settings.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri={settings.BACKEND_URL}/scoreify/callback/&code_challenge_method=S256&code_challenge={challenge}&scope=user-read-private user-read-email user-top-read&state={signed_verifier}"
+    authURL = f"https://accounts.spotify.com/authorize?client_id={settings.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri={settings.BACKEND_URL}/scoreify/callback/&code_challenge_method=S256&code_challenge={challenge}&scope=user-read-private user-read-email user-top-read&state={session.session_id}"
 
     return redirect(authURL)
 
@@ -50,6 +48,7 @@ def getAccessToken(code, codeVerifier):
     response = requests.post("https://accounts.spotify.com/api/token", 
                            headers={ "Content-Type": "application/x-www-form-urlencoded" },
                            data=postData)
+    print("Response for access tokenis: %s", response.json())
     return response.json().get('access_token')
 
 def getUserProfile(accessToken):
