@@ -13,10 +13,10 @@ Help Page:
     ✔ Mention the use of spotify API @done(25-06-01 20:36)
 
 Hosting:
-    ☐ Update port and URL usage
-    ☐ Make it easier to flip between production and development, switching URLs and ports
+    ✔ Update port and URL usage @done(25-06-03 20:01)
+    ✔ Make it easier to flip between production and development, switching URLs and ports @done(25-06-03 20:01)
 
-☐ Setup short lived DB for session data, and use it to store the access token to avoid having to store it in the session
-☐ Check if user has cookies disabled, if they do, tell them to enable them
+✔ Setup short lived DB for session data, and use it to store the access token to avoid having to store it in the session @done(25-06-03 20:01)
 ☐ Sort out refresh token
 ☐ Get database to delete expired sessions
+☐ Make it so that if a user is not a whitelisted user, it shows them my data

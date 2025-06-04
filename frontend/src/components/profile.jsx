@@ -21,7 +21,7 @@ const SpotifyProfile = () => {
   const navigate = useNavigate();
 
 
-  const handleGetItems = useCallback((category, listLength, timeFrame) => { 
+  const handleGetItems = useCallback((category, listLength, timeFrame, sessionID) => { 
     axios.get(`${getApiUrl()}/scoreify/topitems/?items=${category}&limit=${listLength}&time_range=${timeFrame}&session_id=${sessionID}`, {withCredentials: true})
     .then(response => {
       setItems(response.data);
@@ -30,21 +30,21 @@ const SpotifyProfile = () => {
       setError({msg: err.response?.data || 'ERROR', code: err.response?.status || 500});
       setTimeout(() => {
         navigate('/', {replace: true});
-      }, 3000);
+      }, 5000);
     });
   }, [navigate]);
 
   useEffect(() => {
-    handleGetItems(category, listLength, timeFrame);
-  }, [category, listLength, timeFrame, handleGetItems]);
+    handleGetItems(category, listLength, timeFrame, sessionID);
+  }, [category, listLength, timeFrame, handleGetItems, sessionID]);
 
   if (error) {
     return (
       <ArcadeError 
         message={error.msg}
         onTimeout={error.code === 400 ? 
-          () => { setTimeout(() => setError(null), 3000); navigate('/dashboard', { replace: true }) } : 
-          () => { setTimeout(() => setError(null), 3000); navigate('/', { replace: true }) }}
+          () => { setTimeout(() => setError(null), 5000); navigate('/dashboard', { replace: true }) } : 
+          () => { setTimeout(() => setError(null), 5000); navigate('/', { replace: true }) }}
       />
     );
   }
@@ -53,7 +53,7 @@ const SpotifyProfile = () => {
     setError({msg: 'SESSION ID NOT IN URL', code: 400});
     setTimeout(() => {
       navigate('/', {replace: true});
-    }, 3000);
+    }, 5000);
   }
 
   const handleLogout = () => {

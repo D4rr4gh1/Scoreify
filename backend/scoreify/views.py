@@ -84,7 +84,13 @@ def topItems(request):
     limit = request.GET.get('limit')
     timeRange = request.GET.get('time_range')
 
-    topTracksList = json.loads(getTopItems(accessToken, items, limit, timeRange).text)
+    topTracksResponse = getTopItems(accessToken, items, limit, timeRange)
+
+    if topTracksResponse.status_code != 200:
+        logging.error("Error getting top items: %s", topTracksResponse.text)
+        return HttpResponse(status=400, content=topTracksResponse.text)
+
+    topTracksList = json.loads(topTracksResponse.text)
 
     if not topTracksList['items']:
         return HttpResponse(status=400, content="No items found")

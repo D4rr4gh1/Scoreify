@@ -5,7 +5,7 @@ const ArcadeError = ({ message, onTimeout }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onTimeout();
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [onTimeout]);
