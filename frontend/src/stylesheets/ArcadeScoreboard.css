@@ -217,4 +217,97 @@
 @keyframes errorBlink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0.5; }
+}
+
+/* Add responsive design for mobile devices */
+@media screen and (max-width: 768px) {
+  .arcade-cabinet {
+    width: 100vw;
+    height: 100vh;
+    padding: 10px;
+  }
+
+  .screen {
+    padding: 10px;
+  }
+
+  .screen-header h1 {
+    font-size: 24px;
+  }
+
+  .arcade-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .arcade-buttons > div {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .arcade-buttons > div:first-child {
+    display: none;
+  }
+
+  /* Center the settings/help buttons container */
+  .arcade-buttons > div:last-child {
+    justify-content: center;
+    width: auto;
+    margin: 0 auto;
+  }
+
+  .arcade-btn {
+    font-size: 14px;
+    padding: 10px;
+    min-width: 80px;
+  }
+
+  .score-entry {
+    font-size: 12px;
+  }
+
+  .rank {
+    width: 40px;
+    margin-right: 10px;
+  }
+
+  .name {
+    margin-right: 10px;
+  }
+
+  .score {
+    width: 80px;
+  }
+
+  .screen-footer {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
+
+/* Add specific adjustments for very small screens */
+@media screen and (max-width: 480px) {
+  .arcade-cabinet {
+    padding: 5px;
+  }
+
+  .screen {
+    padding: 5px;
+  }
+
+  .screen-header h1 {
+    font-size: 20px;
+  }
+
+  .arcade-btn {
+    font-size: 12px;
+    padding: 8px;
+    min-width: 70px;
+  }
+
+  .score-entry {
+    font-size: 12px;
+  }
 } 
