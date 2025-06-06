@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.shortcuts import redirect
 from django.core.signing import Signer
+from django.utils import timezone
+from datetime import timedelta
 import requests, os, base64, hashlib
 from .models import customSession
 
@@ -59,4 +61,8 @@ def getTopItems(accessToken, items, limit, timeRange):
     response = requests.get(f'https://api.spotify.com/v1/me/top/{items}?time_range={timeRange}&limit={limit}', headers={ 'Authorization' : f"Bearer {accessToken}" })
     return response 
 
-
+def deleteExpiredDBEntries():
+    expiry_threshold = timezone.now() - timedelta(hours=1)
+    # Add a limit to avoid long-running deletions
+    # and index on created_at for better performance
+    customSession.objects.filter(created_at__lt=expiry_threshold)[:1000].delete()

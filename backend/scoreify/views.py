@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 import logging
 
 def index(request): 
+
     return HttpResponse("HELLO WORLD")
 
 
@@ -18,6 +19,7 @@ def callback(request):
 
     # If it is the initial call, authorise the user
     if code == None and error == None:
+        deleteExpiredDBEntries()
         return authoriseUser(request)
     
     # If there is an error, we need to handle it
@@ -32,6 +34,7 @@ def callback(request):
         try:
             session = customSession.objects.get(session_id=sessionID)
             if session.is_expired():
+                session.delete()
                 return HttpResponse(status=400, content="Session expired during callback")
         except customSession.DoesNotExist:
             return HttpResponse(status=400, content="Session not found during callback")
