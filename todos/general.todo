@@ -17,6 +17,5 @@ Hosting:
     ✔ Make it easier to flip between production and development, switching URLs and ports @done(25-06-03 20:01)
 
 ✔ Setup short lived DB for session data, and use it to store the access token to avoid having to store it in the session @done(25-06-03 20:01)
-☐ Sort out refresh token
 ☐ Get database to delete expired sessions
 ☐ Make it so that if a user is not a whitelisted user, it shows them my data

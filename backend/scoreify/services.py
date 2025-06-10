@@ -65,4 +65,4 @@ def deleteExpiredDBEntries():
     expiry_threshold = timezone.now() - timedelta(hours=1)
     # Add a limit to avoid long-running deletions
     # and index on created_at for better performance
-    customSession.objects.filter(created_at__lt=expiry_threshold)[:1000].delete()
+    customSession.objects.filter(created_at__lt=expiry_threshold).delete()
